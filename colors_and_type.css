@@ -1,0 +1,201 @@
+/* ============================================================
+   Shivam Sharma Portfolio — Design System Tokens
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;1,300&family=Inter:wght@300;400;500;600&display=swap');
+
+:root {
+  /* ── COLOR: surfaces ───────────────────────────── */
+  --bg:        #050810;
+  --surface:   #0d1117;
+  --surface2:  #161b27;
+  --surface3:  #1e2540;
+  --border:    rgba(255, 255, 255, 0.07);
+  --border-strong: rgba(255, 255, 255, 0.14);
+
+  /* ── COLOR: tri-accent ─────────────────────────── */
+  --accent:   #4f8ef7;   /* electric blue */
+  --accent2:  #7c3aed;   /* violet       */
+  --accent3:  #06d6a0;   /* mint         */
+
+  --accent-soft:  rgba(79, 142, 247, 0.10);
+  --accent2-soft: rgba(124, 58, 237, 0.10);
+  --accent3-soft: rgba(6, 214, 160, 0.10);
+
+  --glow:  rgba(79, 142, 247, 0.35);
+  --glow2: rgba(124, 58, 237, 0.35);
+  --glow3: rgba(6, 214, 160, 0.30);
+
+  /* Signature tri-color gradient (hero highlight, stat nums) */
+  --grad-hero: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 50%, var(--accent3) 100%);
+  --grad-primary: linear-gradient(135deg, var(--accent), var(--accent2));
+  --grad-success: linear-gradient(135deg, var(--accent), var(--accent3));
+  --grad-timeline: linear-gradient(to bottom, var(--accent), var(--accent2), transparent);
+
+  /* ── COLOR: text ───────────────────────────────── */
+  --text:        #e8eaf0;
+  --text-soft:   rgba(232, 234, 240, 0.80);
+  --text-softer: rgba(232, 234, 240, 0.60);
+  --muted:       #6b7280;
+
+  /* ── TYPOGRAPHY: families ──────────────────────── */
+  --font-display: 'Syne', 'Space Grotesk', sans-serif;
+  --font-mono:    'DM Mono', 'JetBrains Mono', ui-monospace, monospace;
+  --font-body:    'Inter', system-ui, -apple-system, sans-serif;
+
+  /* ── TYPOGRAPHY: scale ─────────────────────────── */
+  --fs-hero:    clamp(48px, 7vw, 88px);
+  --fs-h1:      clamp(32px, 5vw, 52px);
+  --fs-h2:      28px;
+  --fs-h3:      20px;
+  --fs-stat:    36px;
+  --fs-body:    15px;
+  --fs-lead:    16px;
+  --fs-small:   13px;
+  --fs-micro:   11px;
+
+  --lh-body:    1.7;
+  --lh-prose:   1.9;
+  --lh-display: 1.1;
+
+  /* ── SPACING ───────────────────────────────────── */
+  --sp-1:  4px;
+  --sp-2:  8px;
+  --sp-3:  12px;
+  --sp-4:  16px;
+  --sp-5:  20px;
+  --sp-6:  24px;
+  --sp-8:  32px;
+  --sp-10: 40px;
+  --sp-12: 48px;
+  --sp-16: 64px;
+  --sp-20: 80px;
+  --sp-24: 96px;
+  --sp-30: 120px;  /* section vertical padding */
+
+  /* ── RADII ─────────────────────────────────────── */
+  --r-xs:   6px;
+  --r-sm:   8px;
+  --r-md:   12px;
+  --r-lg:   16px;
+  --r-xl:   20px;
+  --r-pill: 100px;
+
+  /* ── SHADOWS & GLOWS ───────────────────────────── */
+  --sh-btn:    0 8px 30px var(--glow);
+  --sh-btn2:   0 8px 30px var(--glow2);
+  --sh-avatar: 0 0 40px rgba(79,142,247,0.2), 0 0 80px rgba(124,58,237,0.1);
+  --sh-dot:    0 0 12px var(--accent);
+  --sh-dot-mint: 0 0 12px var(--accent3);
+
+  /* ── MOTION ────────────────────────────────────── */
+  --ease:      cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-out:  cubic-bezier(0.2, 0.8, 0.2, 1);
+  --dur-fast:  0.2s;
+  --dur-med:   0.4s;
+  --dur-slow:  0.7s;
+
+  /* ── CONTAINER ─────────────────────────────────── */
+  --container-max: 1100px;
+  --container-pad: 40px;
+}
+
+/* ============================================================
+   Base + Semantic Element Styles
+   ============================================================ */
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1 {
+  font-family: var(--font-display);
+  font-size: var(--fs-h1);
+  font-weight: 800;
+  letter-spacing: -2px;
+  line-height: var(--lh-display);
+}
+h2 {
+  font-family: var(--font-display);
+  font-size: var(--fs-h2);
+  font-weight: 700;
+  letter-spacing: -1px;
+}
+h3 {
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  font-weight: 700;
+}
+p {
+  font-family: var(--font-body);
+  font-size: var(--fs-lead);
+  color: var(--text-soft);
+  line-height: var(--lh-prose);
+}
+code, .mono {
+  font-family: var(--font-mono);
+  font-size: var(--fs-small);
+}
+.hero-name {
+  font-family: var(--font-display);
+  font-size: var(--fs-hero);
+  font-weight: 800;
+  letter-spacing: -3px;
+  line-height: 1;
+}
+.section-tag {
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  color: var(--accent);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+.highlight {
+  background: var(--grad-hero);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ============================================================
+   Utility — gradient text
+   ============================================================ */
+.grad-text   { background: var(--grad-hero);    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.grad-text-2 { background: var(--grad-primary); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.grad-text-3 { background: var(--grad-success); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+
+/* ============================================================
+   Utility — surface cards
+   ============================================================ */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+}
+.card-lg { border-radius: var(--r-xl); padding: var(--sp-10); }
+.pill {
+  border-radius: var(--r-pill);
+  padding: 6px 16px;
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  border: 1px solid var(--border);
+  background: var(--surface2);
+}
+
+/* ============================================================
+   Keyframes (shared motion library)
+   ============================================================ */
+@keyframes fadeUp  { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes pulse   { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+@keyframes drift   { from { transform: translate(0,0) scale(1); } to { transform: translate(40px, 30px) scale(1.1); } }
+@keyframes spinRing{ from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+@keyframes glowPulse { 0%,100% { transform: scale(1); opacity: 0.8; } 50% { transform: scale(1.1); opacity: 1; } }

@@ -1,0 +1,17 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><link rel="stylesheet" href="_card.css"><style>
+html,body{height:250px; overflow:hidden;}
+.scene { position:relative; width:100%; height:250px; border-radius:14px; overflow:hidden; background:#050810; border:1px solid rgba(255,255,255,0.07); }
+.orb { position:absolute; border-radius:50%; filter: blur(90px); }
+.o1 { width:300px; height:300px; background:rgba(79,142,247,0.25); top:-60px; left:-60px; }
+.o2 { width:250px; height:250px; background:rgba(124,58,237,0.22); bottom:-50px; right:-50px; }
+.o3 { width:180px; height:180px; background:rgba(6,214,160,0.15); top:50%; left:40%; }
+.scene::after { content:''; position:absolute; inset:0; background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E"); opacity:0.6; }
+.lbl { position:absolute; bottom:12px; left:14px; font-family:'DM Mono',monospace; font-size:10px; color:#e8eaf0; letter-spacing:0.1em; z-index:2; }
+</style></head><body><div class="inner">
+<div class="scene">
+  <div class="orb o1"></div>
+  <div class="orb o2"></div>
+  <div class="orb o3"></div>
+  <div class="lbl">3 drifting orbs + fractal noise · z-index:0 fixed</div>
+</div>
+</div></body></html>

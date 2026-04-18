@@ -1,0 +1,17 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><link rel="stylesheet" href="_card.css"><style>
+.avatar-wrap { position:relative; display:flex; justify-content:center; align-items:center; height:230px; }
+.ring { position:absolute; width:200px; height:200px; border-radius:50%; border:2px solid rgba(79,142,247,0.3); animation: spin 12s linear infinite; }
+.ring2 { width:230px; height:230px; border:1px dashed rgba(124,58,237,0.2); animation: spin 20s linear infinite reverse; }
+.glow { position:absolute; width:180px; height:180px; border-radius:50%; background: radial-gradient(circle, rgba(79,142,247,0.15), transparent 70%); }
+.av { position:relative; z-index:2; width:160px; height:160px; border-radius:50%; border:3px solid rgba(79,142,247,0.5); box-shadow: 0 0 40px rgba(79,142,247,0.2), 0 0 80px rgba(124,58,237,0.1); overflow:hidden; }
+@keyframes spin { from{transform:rotate(0)} to{transform:rotate(360deg)} }
+.lbl { font-family:'DM Mono',monospace; font-size:10px; color:#6b7280; text-transform:uppercase; letter-spacing:0.1em; position:absolute; right:20px; top:14px; }
+</style></head><body><div class="inner">
+<div class="avatar-wrap">
+  <div class="ring ring2"></div>
+  <div class="ring"></div>
+  <div class="glow"></div>
+  <div class="av"><img src="../assets/avatar-shivam.svg?v=2" width="160" height="160"/></div>
+  <div class="lbl">avatar · rings · glow</div>
+</div>
+</div></body></html>

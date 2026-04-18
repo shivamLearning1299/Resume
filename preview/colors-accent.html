@@ -1,0 +1,15 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><link rel="stylesheet" href="_card.css"><style>
+.swatch { display:flex; flex-direction:column; gap:6px; }
+.chip { width:100%; height:58px; border-radius:12px; border:1px solid var(--border); position:relative; overflow:hidden; }
+.chip .dot { position:absolute; inset:0; background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.06), transparent 50%); }
+.grid { display:grid; grid-template-columns: repeat(4,1fr); gap:14px; }
+.hex { font-family: var(--font-mono); font-size:11px; color: var(--text); }
+.name { font-family: var(--font-mono); font-size:10px; color: var(--muted); text-transform: uppercase; letter-spacing:0.1em; }
+</style></head><body><div class="inner">
+<div class="grid">
+  <div class="swatch"><div class="chip" style="background:#4f8ef7"><div class="dot"></div></div><div class="name">accent</div><div class="hex">#4F8EF7</div></div>
+  <div class="swatch"><div class="chip" style="background:#7c3aed"><div class="dot"></div></div><div class="name">accent2</div><div class="hex">#7C3AED</div></div>
+  <div class="swatch"><div class="chip" style="background:#06d6a0"><div class="dot"></div></div><div class="name">accent3</div><div class="hex">#06D6A0</div></div>
+  <div class="swatch"><div class="chip" style="background:linear-gradient(135deg,#4f8ef7 0%,#7c3aed 50%,#06d6a0 100%)"></div><div class="name">grad-hero</div><div class="hex">blue→violet→mint</div></div>
+</div>
+</div></body></html>

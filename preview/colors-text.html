@@ -1,0 +1,15 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><link rel="stylesheet" href="_card.css"><style>
+.row2 { display:grid; grid-template-columns: repeat(4,1fr); gap:14px; }
+.swatch { display:flex; flex-direction:column; gap:6px; }
+.chip { width:100%; height:58px; border-radius:12px; border:1px solid var(--border); display:flex; align-items:center; justify-content:center; }
+.chip span { font-family: var(--font-body); font-size: 13px; }
+.name { font-family: var(--font-mono); font-size:10px; color: var(--muted); text-transform: uppercase; letter-spacing:0.1em; }
+.hex { font-family: var(--font-mono); font-size:11px; color: var(--text); }
+</style></head><body><div class="inner">
+<div class="row2">
+  <div class="swatch"><div class="chip" style="background:#0d1117"><span style="color:#e8eaf0">Aa</span></div><div class="name">text</div><div class="hex">#E8EAF0</div></div>
+  <div class="swatch"><div class="chip" style="background:#0d1117"><span style="color:rgba(232,234,240,0.80)">Aa</span></div><div class="name">text-soft</div><div class="hex">80%</div></div>
+  <div class="swatch"><div class="chip" style="background:#0d1117"><span style="color:rgba(232,234,240,0.60)">Aa</span></div><div class="name">text-softer</div><div class="hex">60%</div></div>
+  <div class="swatch"><div class="chip" style="background:#0d1117"><span style="color:#6b7280">Aa</span></div><div class="name">muted</div><div class="hex">#6B7280</div></div>
+</div>
+</div></body></html>
