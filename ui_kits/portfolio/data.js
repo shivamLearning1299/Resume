@@ -1,5 +1,5 @@
 // Journey data — single source of truth for the UI kit
-const AVATAR_SRC = "../../assets/avatar-shivam.svg";
+const AVATAR_SRC = "assets/avatar-shivam.svg";
 
 const JOURNEY_STOPS = [
   {

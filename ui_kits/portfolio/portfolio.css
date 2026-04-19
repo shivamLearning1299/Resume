@@ -1,5 +1,6 @@
 /* Portfolio UI Kit styles — extends colors_and_type.css */
 @import url('../../colors_and_type.css');
+/* Root-level fallback — works when served from project root */
 
 html, body { width: 100%; min-height: 100%; background: var(--bg); color: var(--text); font-family: var(--font-body); overflow-x: hidden; }
 
