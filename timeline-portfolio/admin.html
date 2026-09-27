@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin — Timeline Override Dashboard</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+  /* ===== admin-specific styles, all scoped under .adm- ===== */
+  :root {
+    --adm-bg: #0b0d12;
+    --adm-panel: #12151d;
+    --adm-border: #262b3a;
+    --adm-accent: #8a7cff;
+    --adm-accent-2: #5ad0ff;
+    --adm-text: #e6e8f0;
+    --adm-muted: #8b90a3;
+    --adm-danger: #ff6b81;
+    --adm-ok: #4cd491;
+  }
+  body.adm-body { background: var(--adm-bg); color: var(--adm-text); font-family: system-ui, -apple-system, "Segoe UI", sans-serif; margin: 0; }
+  .adm-wrap { max-width: 900px; margin: 0 auto; padding: 24px 20px 80px; }
+  .adm-header { display:flex; flex-wrap:wrap; align-items:center; gap:10px; margin-bottom:20px; }
+  .adm-header h1 { font-size:20px; flex:1 1 200px; margin:0; }
+  .adm-btn { background: var(--adm-panel); color: var(--adm-text); border:1px solid var(--adm-border); padding:8px 14px; border-radius:8px; cursor:pointer; font-size:13px; }
+  .adm-btn:hover { border-color: var(--adm-accent); }
+  .adm-btn-primary { background: var(--adm-accent); border-color: var(--adm-accent); color:#0b0d12; font-weight:600; }
+  .adm-btn-danger { color: var(--adm-danger); border-color: var(--adm-danger); }
+  .adm-section { background: var(--adm-panel); border:1px solid var(--adm-border); border-radius:12px; padding:18px; margin-bottom:18px; }
+  .adm-section h2 { font-size:15px; margin:0 0 14px; color: var(--adm-accent-2); letter-spacing:.03em; }
+  .adm-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  @media (max-width:640px){ .adm-grid { grid-template-columns:1fr; } }
+  .adm-field label { display:block; font-size:11px; color: var(--adm-muted); text-transform:uppercase; letter-spacing:.06em; margin-bottom:4px; }
+  .adm-field input[type="text"], .adm-field input[type="url"], .adm-field select, .adm-field textarea {
+    width:100%; background:var(--adm-bg); color:var(--adm-text); border:1px solid var(--adm-border);
+    border-radius:6px; padding:8px 10px; font-size:13px; font-family:inherit;
+  }
+  .adm-field textarea { min-height:70px; resize:vertical; font-family:ui-monospace,monospace; font-size:12px; }
+  .adm-field input:focus, .adm-field select:focus, .adm-field textarea:focus { outline:none; border-color: var(--adm-accent); }
+  .adm-event { border:1px solid var(--adm-border); border-radius:10px; margin-bottom:10px; overflow:hidden; }
+  .adm-event-head { display:flex; align-items:center; gap:10px; padding:10px 12px; cursor:pointer; background:rgba(255,255,255,.02); }
+  .adm-event-head .adm-ev-title { flex:1; font-size:13px; font-weight:600; }
+  .adm-event-head .adm-ev-type { font-size:11px; color:var(--adm-muted); background:var(--adm-bg); padding:2px 8px; border-radius:10px; border:1px solid var(--adm-border); }
+  .adm-event-head .adm-caret { color:var(--adm-muted); transition:transform .15s; }
+  .adm-event.adm-open .adm-caret { transform:rotate(90deg); }
+  .adm-event-body { display:none; padding:12px; border-top:1px solid var(--adm-border); }
+  .adm-event.adm-open .adm-event-body { display:block; }
+  .adm-ev-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  @media (max-width:640px){ .adm-ev-grid { grid-template-columns:1fr; } }
+  .adm-ev-full { grid-column:1 / -1; }
+  .adm-ev-actions { display:flex; gap:8px; margin-top:12px; }
+  .adm-check { display:flex; align-items:center; gap:8px; font-size:13px; padding-top:20px; }
+  .adm-status { font-size:13px; margin-left:auto; color:var(--adm-muted); }
+  .adm-status.adm-ok { color:var(--adm-ok); }
+  .adm-status.adm-err { color:var(--adm-danger); }
+  .adm-outbox-item { font-size:12px; font-family:ui-monospace,monospace; background:var(--adm-bg); border:1px solid var(--adm-border); border-radius:6px; padding:8px 10px; margin-bottom:6px; white-space:pre-wrap; word-break:break-word; }
+  .adm-outbox-empty { color:var(--adm-muted); font-size:13px; }
+  .adm-hint { font-size:11px; color:var(--adm-muted); margin-top:2px; }
+  .adm-invalid { border-color: var(--adm-danger) !important; }
+  .adm-err-msg { color:var(--adm-danger); font-size:12px; margin-top:8px; }
+</style>
+</head>
+<body class="adm-body">
+<script src="data.js"></script>
+<script src="auth.js"></script>
+<script>
+  window.AUTH.gate().then((ok) => {
+    if (ok) { const s = document.createElement("script"); s.src = "admin.js"; document.body.appendChild(s); }
+  });
+</script>
+<div class="adm-wrap">
+  <div class="adm-header">
+    <h1>⏳ Timeline Admin</h1>
+    <button class="adm-btn adm-btn-primary" id="admSave">Save</button>
+    <button class="adm-btn" id="admExport">Export JSON</button>
+    <button class="adm-btn" id="admImportBtn">Import JSON</button>
+    <input type="file" id="admImportFile" accept="application/json,.json" style="display:none">
+    <button class="adm-btn adm-btn-danger" id="admReset">Reset to defaults</button>
+    <a class="adm-btn" href="index.html" style="text-decoration:none; display:inline-block;">View site →</a>
+  </div>
+  <div id="admStatus" class="adm-status" role="status"></div>
+
+  <section class="adm-section">
+    <h2>Site settings</h2>
+    <div class="adm-grid" id="admSiteFields"></div>
+  </section>
+
+  <section class="adm-section">
+    <h2>Timeline events</h2>
+    <div id="admEvents"></div>
+    <button class="adm-btn" id="admAddEvent">+ Add new event</button>
+    <div class="adm-err-msg" id="admErr" style="display:none"></div>
+  </section>
+
+  <section class="adm-section">
+    <h2>Outbox — contact submissions</h2>
+    <div id="admOutbox"></div>
+    <button class="adm-btn adm-btn-danger" id="admClearOutbox" style="margin-top:8px;">Clear outbox</button>
+  </section>
+</div>
+<script src="data.js"></script>
+</body>
+</html>

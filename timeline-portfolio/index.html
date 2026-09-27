@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Shivam Sharma — AI & Backend Engineer</title>
+<meta name="description" content="Interactive career timeline of Shivam Sharma — backend systems and AI agents that survive production. Python, FastAPI, LangGraph, AWS." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body class="app">
+<div class="bg-grid" aria-hidden="true"></div>
+<div class="bg-glow" aria-hidden="true"></div>
+
+<!-- TOP TIMELINE BAR -->
+<header class="topbar">
+  <button class="nav-btn" id="prevBtn" aria-label="Previous moment">‹</button>
+  <div class="topbar-center">
+    <div class="year-readout"><span id="yearNow">2026</span></div>
+    <div class="topbar-meta">
+      <span id="stageName">Present</span>
+      <span class="dot">·</span>
+      <span id="stageDate">NOW</span>
+    </div>
+    <div class="progress"><div class="progress-fill" id="progressFill"></div></div>
+  </div>
+  <button class="nav-btn" id="nextBtn" aria-label="Next moment">›</button>
+</header>
+
+<!-- STAGE -->
+<main id="stage" class="stage" tabindex="0" aria-live="polite"></main>
+
+<!-- BOTTOM TIMELINE RAIL -->
+<nav class="rail" id="rail" aria-label="Timeline navigation"></nav>
+
+<!-- PERSISTENT ACTIONS -->
+<div class="actions">
+  <a class="chip chip-primary" id="resumeLink" href="#" download>Download Resume</a>
+  <button class="chip" id="journeyBtn">View Technical Journey</button>
+  <button class="chip" id="contactBtn">Contact Me</button>
+  <kbd class="kbd-hint">⌘K Time Jump</kbd>
+</div>
+
+<!-- TIME JUMP PALETTE -->
+<div class="palette-backdrop" id="paletteBackdrop" hidden>
+  <div class="palette" role="dialog" aria-label="Time Jump">
+    <div class="palette-head"><input id="paletteInput" type="text" placeholder="Jump to a year, project, skill…" autocomplete="off" /><button class="palette-x" id="paletteClose" aria-label="Close">✕</button></div>
+    <ul id="paletteList"></ul>
+    <div class="palette-foot">↑↓ navigate · Enter to jump · ESC to close</div>
+  </div>
+</div>
+
+<script type="importmap">{ "imports": { "three": "https://unpkg.com/three@0.160.0/build/three.module.js" } }</script>
+<script src="data.js"></script>
+<script src="app.js"></script>
+<script src="enhancements.js" defer></script>
+<script src="character.js" defer></script>
+<script src="summary.js" defer></script>
+<script type="module" src="scenes3d.js"></script>
+</body>
+</html>
