@@ -162,10 +162,23 @@
     const dir = i > idx ? 1 : -1;
     idx = i; render(dir);
   }
-  const next = () => go(idx + 1), prev = () => go(idx - 1);
+  let next = () => go(idx + 1), prev = () => go(idx - 1);   // replaced by navOrder-aware nav below
 
-  document.getElementById("nextBtn").onclick = next;
-  document.getElementById("prevBtn").onclick = prev;
+  // navigation order: rail order (chronological), hero ("now") pinned first, contact last
+  const navOrder = (() => {
+    const hero = TL.findIndex(e => e.type === "hero");
+    const contact = TL.findIndex(e => e.type === "contact");
+    const rest = TL.map((e, i) => ({ e, i }))
+      .filter(x => x.i !== hero && x.i !== contact && !isNaN(parseInt(x.e.year, 10)))
+      .sort((a, b) => parseInt(a.e.year, 10) - parseInt(b.e.year, 10) || a.i - b.i)
+      .map(x => x.i);
+    return [hero, ...rest, contact].filter(i => i >= 0);
+  })();
+  next = () => { const p = navOrder.indexOf(idx); go(navOrder[(p + 1) % navOrder.length]); };
+  prev = () => { const p = navOrder.indexOf(idx); go(navOrder[(p - 1 + navOrder.length) % navOrder.length]); };
+
+  document.getElementById("nextBtn").onclick = () => next();
+  document.getElementById("prevBtn").onclick = () => prev();
   stage.addEventListener("click", (ev) => {
     const g = ev.target.closest("[data-go]"); if (g) go(+g.dataset.go);
   });

@@ -25,7 +25,7 @@
   .sum-btn{ display:none; }
   /* big centered hero button, injected under the hero pane */
   .sum-hero-btn{
-    display:flex; align-items:center; gap:14px; margin:22px auto 0;
+    display:flex; align-items:center; gap:14px; margin:0 auto 22px;
     font-family:var(--mono,monospace); font-size:13px; letter-spacing:.18em;
     color:#12100d; background:var(--accent,#e8a33d);
     border:1px solid var(--accent,#e8a33d); padding:16px 34px; cursor:pointer;
@@ -159,7 +159,7 @@
     heroBtn.innerHTML = '<span class="sum-hero-icon">⚡</span><span>1-Minute Summary for Recruiters</span>';
     heroBtn.setAttribute("aria-label", "Open one-minute summary");
     heroBtn.addEventListener("click", function () { openSummary(); });
-    hero.appendChild(heroBtn);
+    hero.insertBefore(heroBtn, hero.firstChild);
   }
   /* scenes are re-rendered in place; app.js calls render() on nav — hook via MutationObserver on class changes */
   var stageRoot = document.getElementById("stage");
