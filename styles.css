@@ -276,10 +276,16 @@ h2.scene-title { font-family: var(--serif); font-size: clamp(29px, 4.1vw, 47px);
 /* ============ MOBILE ============ */
 @media (max-width: 860px) {
   .actions {
-    left: 0; right: 0; top: auto; bottom: 60px; transform: none;
-    flex-direction: row; justify-content: center; align-items: center; flex-wrap: wrap; gap: 6px;
-    padding: 0 12px;
+    left: 50%; right: auto; top: auto; bottom: 64px; transform: translateX(-50%);
+    flex-direction: row; justify-content: center; align-items: center; flex-wrap: nowrap; gap: 6px;
+    padding: 8px 10px; width: max-content; max-width: calc(100vw - 24px);
+    background: rgba(18,16,13,.72);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--line);
+    border-radius: 20px; corner-shape: squircle;
+    box-shadow: 0 10px 30px rgba(0,0,0,.45);
   }
+  @supports not (corner-shape: squircle) { .actions { border-radius: 24px; } }
   .kbd-hint { display: none; }
   .scene { padding: 110px 4vw 190px; }
   .pane { padding: 20px 22px; }
