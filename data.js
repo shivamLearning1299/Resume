@@ -10,8 +10,8 @@ window.SITE = {
   subline: "Backend systems and AI agents that survive production traffic — Python · FastAPI · LangChain/LangGraph · AWS.",
   location: "Noida, NCR, India",
   experience: "4.5+ years",
-  email: "shivam@gmail.com",          /* ← fix real address in admin dashboard */
-  github: "https://github.com/",      /* ← fix in dashboard */
+  email: "contact@shyvam1299.xyz",
+  github: "https://github.com/shivamLearning1299",
   linkedin: "https://www.linkedin.com/in/shivamsharma3ab",
   resumeUrl: "ShivamSharma_Python_AgenticAI_4.5+_YOE.pdf",
 };
