@@ -75,6 +75,8 @@
           <a class="chip chip-primary" href="${esc(S.resumeUrl)}" download>Resume PDF</a>
         </div></div>
         <form class="pane contact-form" id="contactForm" novalidate>
+          <input type="text" id="cfWebsite" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;opacity:0;height:0" aria-hidden="true" />
+          <input type="hidden" id="cfFilledAt" value="" />
           <label>Email *</label><input type="email" id="cfEmail" required placeholder="you@company.com" />
           <label>Name</label><input type="text" id="cfName" placeholder="Optional" />
           <label>Message</label><textarea id="cfMsg" rows="3" placeholder="Optional"></textarea>
@@ -254,17 +256,38 @@
     if (Date.now() - last < 60000) { st.textContent = "Message already sent recently — try again in a minute."; st.className = "form-status bad"; return; }
     btn.disabled = true; btn.innerHTML = '<span class="spin">◌</span> Sending…';
     st.textContent = ""; st.className = "form-status";
-    // Prototype: no network keys client-side. Compose via mailto + log locally.
-    // Production: POST to /api/contact (Resend) — see BRIEF.md.
-    setTimeout(() => {
-      const msgs = JSON.parse(localStorage.getItem("cf_outbox") || "[]");
-      msgs.push({ email: em.value.trim(), name: document.getElementById("cfName").value, message: document.getElementById("cfMsg").value, ts: new Date().toISOString() });
-      localStorage.setItem("cf_outbox", JSON.stringify(msgs));
-      localStorage.setItem("cf_last", Date.now());
-      window.location.href = `mailto:${S.email}?subject=Portfolio contact from ${encodeURIComponent(em.value.trim())}&body=${encodeURIComponent(document.getElementById("cfMsg").value || "")}`;
+    // POST to the serverless endpoint; key never touches the client.
+    fetch("/api/contact", {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        email: em.value.trim(), name: document.getElementById("cfName").value,
+        message: document.getElementById("cfMsg").value,
+        website: document.getElementById("cfWebsite").value,
+        filledAt: document.getElementById("cfFilledAt").value,
+      }),
+    }).then(async (r) => {
+      const d = await r.json().catch(() => ({}));
       btn.disabled = false; btn.textContent = "Send Message";
-      st.textContent = "Logged. Your mail client will open to deliver it."; st.className = "form-status ok";
-    }, 700);
+      if (r.ok && d.ok) {
+        localStorage.setItem("cf_last", Date.now());
+        em.value = ""; document.getElementById("cfName").value = ""; document.getElementById("cfMsg").value = "";
+        st.textContent = "Sent ✓ I'll get back to you soon."; st.className = "form-status ok";
+      } else if (d.error) {
+        st.textContent = d.error; st.className = "form-status bad"; localStorage.removeItem("cf_last");
+      } else {
+        st.textContent = "Something went wrong — email me directly instead."; st.className = "form-status bad"; localStorage.removeItem("cf_last");
+      }
+    }).catch(() => {
+      btn.disabled = false; btn.textContent = "Send Message";
+      // local dev without the API running: fall back to mailto so the form still works
+      window.location.href = `mailto:${S.email}?subject=Portfolio contact from ${encodeURIComponent(em.value.trim())}&body=${encodeURIComponent(document.getElementById("cfMsg").value || "")}`;
+      st.textContent = "API offline locally — opened your mail client instead."; st.className = "form-status";
+    });
+  });
+
+  // stamp the form-load time (bot time-trap uses this)
+  document.addEventListener("DOMContentLoaded", () => {
+    const f = document.getElementById("cfFilledAt"); if (f) f.value = Date.now();
   });
 
   // ============ TIME JUMP PALETTE ============

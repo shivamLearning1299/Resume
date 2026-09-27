@@ -188,3 +188,16 @@ cd timeline-portfolio && ./start-site.sh   # serves on http://127.0.0.1:8138
 - `seo.html` — SEO/JSON-LD reference markup
 - `ShivamSharma_Python_AgenticAI_4.5+_YOE.pdf` — current resume (committed; small file)
 - `PRODUCTION.md` — Next.js production plan
+
+## Production email (contact form)
+
+/api/contact.js is a Vercel serverless function protected by:
+honeypot field, 3s time-trap, 5/10min per-IP + 2/hour per-email rate limits,
+disposable-domain blocklist, input size caps.
+
+Setup:
+1. resend.com → free account → create API key
+2. Vercel project → Settings → Environment Variables → RESEND_API_KEY=<key>
+3. Optional: CONTACT_TO, CONTACT_FROM (defaults: shivam12061999@gmail.com /
+   onboarding@resend.dev)
+4. Redeploy. Local: `vercel dev` if you want to test /api locally.
