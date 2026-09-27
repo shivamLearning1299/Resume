@@ -74,10 +74,29 @@ export default async function handler(req, res) {
         reply_to: em,
         subject: `Portfolio contact — ${nm || em}`,
         text: `From: ${nm || "(no name)"} <${em}>\nTime: ${new Date().toISOString()}\n\n${msg || "(no message)"}`,
-        html: `<div style="font-family:system-ui;max-width:520px">
-          <h3 style="margin:0 0 6px">Portfolio contact</h3>
-          <p style="color:#666;margin:0 0 14px">${escapeHtml(nm || "Unknown")} &lt;${escapeHtml(em)}&gt;</p>
-          <p style="white-space:pre-wrap">${escapeHtml(msg || "(no message)")}</p></div>`,
+        html: `<!DOCTYPE html><html><body style="margin:0;padding:0;background:#12100d">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#12100d;padding:32px 0">
+<tr><td align="center">
+<table role="presentation" width="560" cellpadding="0" cellspacing="0" style="max-width:560px;width:100%">
+  <tr><td style="padding:0 0 18px">
+    <span style="font-family:ui-monospace,Menlo,monospace;font-size:10px;letter-spacing:.25em;color:#e8a33d;text-transform:uppercase">Portfolio · New message</span>
+  </td></tr>
+  <tr><td style="background:#1a1712;border:1px solid rgba(240,233,219,.1);border-radius:22px;padding:32px 34px">
+    <p style="font-family:Georgia,'Iowan Old Style',serif;font-size:24px;color:#f0e9db;margin:0 0 6px;font-weight:600">${escapeHtml(nm || "New message")}</p>
+    <p style="font-family:ui-monospace,Menlo,monospace;font-size:13px;color:#b3a995;margin:0 0 4px">
+      <a href="mailto:${escapeHtml(em)}" style="color:#e8a33d;text-decoration:none">${escapeHtml(em)}</a>
+    </p>
+    <p style="font-family:ui-monospace,Menlo,monospace;font-size:11px;color:#7a7260;margin:0 0 22px">${new Date().toLocaleString("en-IN",{timeZone:"Asia/Kolkata"})} IST</p>
+    <div style="border-top:1px solid rgba(240,233,219,.09);padding-top:22px">
+      <p style="font-family:system-ui,sans-serif;font-size:16px;line-height:1.6;color:#f0e9db;margin:0;white-space:pre-wrap">${escapeHtml(msg || "(no message)")}</p>
+    </div>
+  </td></tr>
+  <tr><td style="padding:16px 4px 0">
+    <p style="font-family:ui-monospace,Menlo,monospace;font-size:10px;letter-spacing:.15em;color:#7a7260;margin:0">via shyvam1299.xyz — reply directly to respond</p>
+  </td></tr>
+</table>
+</td></tr>
+</table></body></html>`,
       }),
     });
 
