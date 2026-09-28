@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>for you 💛</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Karla:wght@300..700&display=swap">
+<style>
+  :root{
+    --bg:#fff6ec; --card:#fffdf9; --ink:#4a3728; --soft:#8a7361;
+    --accent:#e8788a; --accent2:#e8a33d; --line:rgba(74,55,40,.12);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    min-height:100vh; background:var(--bg); color:var(--ink);
+    font-family:Karla,system-ui,sans-serif; overflow-x:hidden;
+    display:flex; align-items:center; justify-content:center; padding:24px;
+  }
+  body::before{
+    content:""; position:fixed; inset:0; pointer-events:none; opacity:.55;
+    background:
+      radial-gradient(52% 40% at 18% 12%, rgba(232,120,138,.14), transparent 70%),
+      radial-gradient(46% 36% at 85% 78%, rgba(232,163,61,.14), transparent 70%);
+  }
+  .card{
+    position:relative; max-width:620px; width:100%; background:var(--card);
+    border:1px solid var(--line); border-radius:34px; corner-shape:squircle;
+    padding:56px 44px; box-shadow:0 24px 70px rgba(74,55,40,.12);
+    text-align:center;
+  }
+  .envelope{font-size:44px; display:block; animation:bob 2.6s ease-in-out infinite}
+  @keyframes bob{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-9px) rotate(3deg)}}
+  h1{
+    font-family:Fraunces,Georgia,serif; font-weight:600; letter-spacing:-.01em;
+    font-size:clamp(34px,7vw,54px); line-height:1.08; margin:14px 0 6px; color:var(--ink);
+  }
+  h1 em{font-style:italic; color:var(--accent)}
+  .sub{font-size:16px; color:var(--soft); margin-bottom:30px}
+  .letter{
+    background:#fffaf3; border:1px dashed rgba(232,120,138,.45); border-radius:26px; corner-shape:squircle;
+    padding:32px 30px; text-align:left; font-size:17.5px; line-height:1.75; color:var(--ink);
+  }
+  .letter p{margin:0 0 16px}
+  .letter p:last-child{margin-bottom:0}
+  .sig{text-align:right; font-family:Fraunces,serif; font-style:italic; color:var(--accent); font-size:20px; margin-top:10px}
+  .hearts{display:flex; gap:10px; justify-content:center; margin-top:30px}
+  .hearts span{font-size:20px; animation:beat 1.4s ease-in-out infinite}
+  .hearts span:nth-child(2){animation-delay:.18s}
+  .hearts span:nth-child(3){animation-delay:.36s}
+  @keyframes beat{0%,100%{transform:scale(1)}30%{transform:scale(1.35)}60%{transform:scale(1)}}
+  .foot{margin-top:22px; font-size:12px; letter-spacing:.18em; text-transform:uppercase; color:var(--soft)}
+  .btn{
+    display:inline-block; margin-top:26px; padding:14px 32px; border-radius:20px; corner-shape:squircle;
+    background:var(--accent); color:#fff; font-weight:700; font-size:15px; letter-spacing:.02em;
+    text-decoration:none; box-shadow:0 10px 26px rgba(232,120,138,.35); transition:transform .2s;
+  }
+  .btn:hover{transform:translateY(-3px) scale(1.03)}
+</style>
+</head>
+<body>
+  <main class="card">
+    <span class="envelope">💌</span>
+    <h1>A tiny <em>sorry</em>,<br>wrapped in code</h1>
+    <p class="sub">I couldn't just say it in a text. So I built you this.</p>
+
+    <section class="letter">
+      <p>Hey you,</p>
+      <p>I'm sorry. Not the automatic kind — the kind where I sat with it, realized I was wrong, and decided a bare "sorry" wasn't going to cut it.</p>
+      <p>So here's me, doing what I do — making something — only this time it's not a system or an API, it's just… this. A page, for you, because you deserved more than twelve characters on a lock screen.</p>
+      <p>Forgive me? 🥺</p>
+      <p class="sig">— Shivam 💛</p>
+    </section>
+
+    <div class="hearts"><span>🧡</span><span>💛</span><span>🩷</span></div>
+    <a class="btn" href="#" id="forgiveBtn">I forgive you</a>
+    <p class="foot" id="footNote">made with real feelings · shyvam1299.xyz</p>
+  </main>
+
+  <script>
+    // little celebration when she forgives you
+    document.getElementById('forgiveBtn').addEventListener('click', function (e) {
+      e.preventDefault();
+      const foot = document.getElementById('footNote');
+      foot.textContent = '❤️ forgiveness received. thank you.';
+      foot.style.color = '#e8788a';
+      this.textContent = 'best decision ever 🎉';
+      for (let i = 0; i < 26; i++) {
+        const h = document.createElement('span');
+        h.textContent = ['💛','🩷','🧡','✨','💌'][Math.floor(Math.random()*5)];
+        h.style.cssText = `position:fixed;left:${Math.random()*100}vw;top:-24px;font-size:${16+Math.random()*18}px;pointer-events:none;z-index:50;transition:transform ${1.6+Math.random()}s ease-in, opacity 2s;`;
+        document.body.appendChild(h);
+        requestAnimationFrame(() => {
+          h.style.transform = `translateY(${innerHeight+60}px) rotate(${(Math.random()-0.5)*240}deg)`;
+          h.style.opacity = 0;
+        });
+        setTimeout(() => h.remove(), 2800);
+      }
+    });
+  </script>
+</body>
+</html>
