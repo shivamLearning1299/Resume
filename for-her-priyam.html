@@ -87,6 +87,10 @@
     // little celebration when she forgives you
     document.getElementById('forgiveBtn').addEventListener('click', function (e) {
       e.preventDefault();
+      // quietly let Shivam know
+      fetch('/api/forgiven', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ token: 'priyam-angel-29' }) }).catch(function(){});
+
       const foot = document.getElementById('footNote');
       foot.textContent = '❤️ forgiveness received. thank you.';
       foot.style.color = '#e8788a';
